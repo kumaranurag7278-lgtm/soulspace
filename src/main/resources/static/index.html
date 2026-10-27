@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SoulSpace · Find room to feel human again</title>
+<meta name="description" content="SoulSpace is an anonymous, spatial mental wellness space: talk to a kind stranger, book a clinician, breathe, and be heard.">
+<meta name="theme-color" content="#05060d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='22' fill='%23ffd28a'/%3E%3Ccircle cx='40' cy='26' r='18' fill='%2305060d'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<canvas id="cosmos" aria-hidden="true"></canvas>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="SoulSpace home"><span class="brand-moon" aria-hidden="true"></span>SoulSpace</a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#lounge">Lounge</a>
+    <a href="#clinicians">Clinicians</a>
+    <a href="#calm">Calm</a>
+    <a href="#aria">Aria</a>
+    <a href="#board">Soul Board</a>
+    <a href="#sanctuary" id="navSanctuary" hidden>My Sanctuary</a>
+  </nav>
+  <div class="nav-actions">
+    <button class="btn btn-ghost btn-shine btn-sm" id="soundBtn" type="button" aria-pressed="false">Ambient sound</button>
+    <button class="btn btn-primary btn-shine btn-sm" id="authBtn" type="button">Sign in</button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO: lamp -->
+<section class="hero" id="top">
+  <div class="lamp" aria-hidden="true">
+    <div class="lamp-glow"></div>
+    <div class="beam beam-left"></div>
+    <div class="beam beam-right"></div>
+    <div class="lamp-bar"></div>
+    <div class="lamp-fog"></div>
+  </div>
+  <div class="hero-copy">
+    <h1 class="shimmer">Find room to feel human again.</h1>
+    <p class="hero-sub">An anonymous, unhurried place to be heard: a stranger who is awake too, clinicians priced by experience, and a sky that holds still while you breathe.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary btn-shine" href="#lounge">Talk to someone now</a>
+      <a class="btn btn-ghost btn-shine" href="#clinicians">Find a clinician</a>
+    </div>
+  </div>
+</section>
+
+<!-- CRISIS -->
+<section class="crisis" id="crisis" aria-labelledby="crisisTitle">
+  <div class="wrap crisis-inner">
+    <div>
+      <h2 id="crisisTitle">If you are in crisis, please call now.</h2>
+      <p>Free, confidential, and answered by trained people. If you might act on thoughts of ending your life, contact your local emergency number.</p>
+    </div>
+    <ul class="helplines">
+      <li><a class="helpline" href="tel:14416"><strong>14416</strong><span>Tele-MANAS · India, 24/7</span></a></li>
+      <li><a class="helpline" href="tel:18005990019"><strong>1800-599-0019</strong><span>KIRAN · India, toll-free</span></a></li>
+      <li><a class="helpline" href="tel:988"><strong>988</strong><span>Suicide &amp; Crisis Lifeline · US</span></a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- LOUNGE -->
+<section class="section" id="lounge" aria-labelledby="loungeTitle">
+  <div class="wrap two-col">
+    <div class="col-intro">
+      <h2 id="loungeTitle">The Venting Lounge</h2>
+      <p>One tap pairs you with another anonymous person who also needs to talk. You each get a random name. When either of you leaves, the conversation is erased from the server. Nothing is stored or logged.</p>
+      <p class="live-count" id="liveCount" aria-live="polite"></p>
+      <p class="fine">Peers are people, not professionals. If things feel unsafe, use the helplines above.</p>
+    </div>
+    <div class="panel tilt lounge-panel" id="loungePanel">
+      <div class="lounge-state" id="loungeIdle">
+        <div class="pulse-dot" aria-hidden="true"></div>
+        <p class="lounge-hint">Ready when you are.</p>
+        <button class="btn btn-primary btn-shine btn-lg" id="matchBtn" type="button">Meet a soul</button>
+      </div>
+      <div class="lounge-state" id="loungeSearching" hidden>
+        <div class="searching-rings" aria-hidden="true"><i></i><i></i><i></i></div>
+        <p class="lounge-hint" id="searchText" role="status">Looking for someone who is awake too…</p>
+        <button class="btn btn-ghost btn-shine" id="cancelMatchBtn" type="button">Cancel</button>
+      </div>
+      <div class="lounge-state chat" id="loungeChat" hidden>
+        <div class="chat-head">
+          <span class="chat-peer" id="chatPeer">Someone kind</span>
+          <span class="chat-you" id="chatYou"></span>
+        </div>
+        <div class="chat-log" id="chatLog" role="log" aria-live="polite"></div>
+        <form class="chat-form" id="chatForm" autocomplete="off">
+          <label class="sr" for="chatInput">Message</label>
+          <input id="chatInput" maxlength="500" placeholder="Say what you need to say…" />
+          <button class="btn btn-primary btn-shine btn-sm" type="submit">Send</button>
+        </form>
+        <div class="chat-actions">
+          <button class="btn btn-ghost btn-shine btn-sm" id="nextBtn" type="button">Next Soul ↻</button>
+          <button class="btn btn-ghost btn-shine btn-sm" id="endBtn" type="button">End chat</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLINICIANS -->
+<section class="section" id="clinicians" aria-labelledby="clinTitle">
+  <div class="wrap">
+    <h2 id="clinTitle">Clinicians, priced by experience</h2>
+    <p class="section-lead">Choose the depth of support that fits the moment. Every session is private. <span class="badge" style="background: rgba(255,210,138,0.12); color: #ffd28a; border: 1px solid rgba(255,210,138,0.3); padding: 2px 8px; border-radius: 99px; font-size: 0.78rem; margin-left: 6px;">Interactive Demo</span></p>
+
+    <div class="pass-banner tilt" id="passBanner">
+      <div class="pass-copy">
+        <h3>SoulSpace Unlimited Pass</h3>
+        <p>Unlimited 24/7 consultations with any clinician, from ₹100 to ₹800, at a flat ₹0 for 30 days.</p>
+      </div>
+      <div class="pass-buy">
+        <div class="pass-price"><span>₹899</span> / month</div>
+        <button class="btn btn-primary btn-shine" id="passBtn" type="button">Get the Pass</button>
+      </div>
+    </div>
+
+    <div class="doctor-grid" id="doctorGrid" aria-live="polite">
+      <p class="muted">Loading clinicians…</p>
+    </div>
+  </div>
+</section>
+
+<!-- SANCTUARY -->
+<section class="section" id="sanctuary" aria-labelledby="sancTitle" hidden>
+  <div class="wrap">
+    <h2 id="sancTitle">My Soul Sanctuary</h2>
+    <div class="sanc-grid">
+      <div class="panel" id="sancPass"></div>
+      <div class="panel" id="sancAppts"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CALM -->
+<section class="section" id="calm" aria-labelledby="calmTitle">
+  <div class="wrap two-col">
+    <div class="panel tilt" id="breathPanel">
+      <h2 id="calmTitle">4 · 7 · 8 breathing</h2>
+      <div class="orb-stage">
+        <div class="orb" id="orb" aria-hidden="true"></div>
+        <div class="orb-text">
+          <div class="orb-phase" id="orbPhase" aria-live="polite">Ready</div>
+          <div class="orb-count" id="orbCount" aria-hidden="true">–</div>
+        </div>
+      </div>
+      <p class="fine" id="orbCycles">Breathe in for 4, hold for 7, breathe out for 8.</p>
+      <button class="btn btn-primary btn-shine" id="orbBtn" type="button">Begin</button>
+    </div>
+    <div class="panel tilt" id="moodPanel">
+      <h2>How are you, today?</h2>
+      <div class="mood-row" id="moodRow" role="group" aria-label="Daily mood check-in">
+        <button class="mood" type="button" data-mood="joyful"><span aria-hidden="true">😊</span>Joyful</button>
+        <button class="mood" type="button" data-mood="calm"><span aria-hidden="true">😌</span>Calm</button>
+        <button class="mood" type="button" data-mood="neutral"><span aria-hidden="true">😐</span>Neutral</button>
+        <button class="mood" type="button" data-mood="anxious"><span aria-hidden="true">😰</span>Anxious</button>
+        <button class="mood" type="button" data-mood="overwhelmed"><span aria-hidden="true">😔</span>Overwhelmed</button>
+      </div>
+      <div class="mood-chart" id="moodChart"></div>
+      <p class="fine" id="moodNote"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ARIA -->
+<section class="section" id="aria" aria-labelledby="ariaTitle">
+  <div class="wrap two-col">
+    <div class="col-intro">
+      <h2 id="ariaTitle">Aria, awake with you</h2>
+      <p>When no one else is around, Aria listens. She reflects what you share, offers one small grounding step, and never rushes you.</p>
+      <p class="fine">Aria is an AI listener using psychological first-aid principles. She is not a therapist and cannot diagnose or treat.</p>
+    </div>
+    <div class="panel tilt aria-panel">
+      <div class="chat-log" id="ariaLog" role="log" aria-live="polite"></div>
+      <form class="chat-form" id="ariaForm" autocomplete="off">
+        <label class="sr" for="ariaInput">Message to Aria</label>
+        <input id="ariaInput" maxlength="1000" placeholder="What is on your mind tonight?" />
+        <button class="btn btn-primary btn-shine btn-sm" type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- BOARD -->
+<section class="section" id="board" aria-labelledby="boardTitle">
+  <div class="wrap">
+    <h2 id="boardTitle">The Soul Board</h2>
+    <p class="section-lead">A public wall of small thoughts. Everyone is anonymous. Leave a hug, a warm tea, or a little peace.</p>
+    <form class="panel composer" id="boardForm">
+      <label class="sr" for="boardText">Share a thought</label>
+      <textarea id="boardText" maxlength="500" rows="3" placeholder="Something you're carrying, or something small that went right…"></textarea>
+      <div class="composer-row">
+        <label class="sr" for="boardCat">Category</label>
+        <select id="boardCat">
+          <option>Venting</option><option>Anxiety</option><option>Lonely</option><option>Small win</option><option>Gratitude</option>
+        </select>
+        <button class="btn btn-primary btn-shine btn-sm" type="submit">Post anonymously</button>
+      </div>
+    </form>
+    <div class="board-feed" id="boardFeed" aria-live="polite"></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p><strong>SoulSpace</strong> offers peer support and self-care tools. It is not an emergency service.</p>
+    <p class="fine">Crisis help: Tele-MANAS 14416 · KIRAN 1800-599-0019 · 988 (US). Elsewhere: findahelpline.com</p>
+    <p class="fine">Demo build: clinician profiles, ratings and payments are simulated sample data, and no real charge is ever made.</p>
+  </div>
+</footer>
+
+<!-- Dialogs -->
+<dialog id="authDlg" aria-labelledby="authTitle">
+  <div class="dlg">
+    <button class="dlg-x" type="button" data-close aria-label="Close">×</button>
+    <h2 id="authTitle">Welcome to SoulSpace</h2>
+    <div class="tabs" role="tablist">
+      <button class="tab on" type="button" role="tab" data-tab="login" aria-selected="true">Sign in</button>
+      <button class="tab" type="button" role="tab" data-tab="register" aria-selected="false">Create account</button>
+    </div>
+    <form id="authForm" novalidate>
+      <label>Email<input type="email" id="aEmail" autocomplete="email" required></label>
+      <div class="only-register" hidden>
+        <label>Alias (shown instead of your name)<input id="aAlias" maxlength="24" autocomplete="nickname"></label>
+        <label>Age<input type="number" id="aAge" min="13" max="120"></label>
+        <label>I'm joining as
+          <select id="aRole"><option value="USER">Someone seeking support</option><option value="PROFESSIONAL">A mental health professional (verification required)</option></select>
+        </label>
+      </div>
+      <label>Password<input type="password" id="aPass" autocomplete="current-password" minlength="8" required></label>
+      <p class="form-error" id="authError" role="alert"></p>
+      <button class="btn btn-primary btn-shine" type="submit" id="authSubmit">Sign in</button>
+    </form>
+  </div>
+</dialog>
+
+<dialog id="bookDlg" aria-labelledby="bookTitle">
+  <div class="dlg">
+    <button class="dlg-x" type="button" data-close aria-label="Close">×</button>
+    <div id="bookBody"></div>
+  </div>
+</dialog>
+
+<dialog id="reviewDlg" aria-labelledby="reviewTitle">
+  <div class="dlg">
+    <button class="dlg-x" type="button" data-close aria-label="Close">×</button>
+    <h2 id="reviewTitle">Rate &amp; review</h2>
+    <p class="muted" id="reviewFor"></p>
+    <form id="reviewForm">
+      <div class="stars" id="starPick" role="radiogroup" aria-label="Rating"></div>
+      <label>Your feedback<textarea id="reviewText" rows="4" maxlength="500" placeholder="What was helpful, and what could be better?"></textarea></label>
+      <p class="form-error" id="reviewError" role="alert"></p>
+      <button class="btn btn-primary btn-shine" type="submit">Submit review</button>
+    </form>
+  </div>
+</dialog>
+
+<dialog id="passDlg" aria-labelledby="passTitle">
+  <div class="dlg">
+    <button class="dlg-x" type="button" data-close aria-label="Close">×</button>
+    <div id="passBody"></div>
+  </div>
+</dialog>
+
+<!-- Private consultation room -->
+<div class="room" id="room" hidden role="dialog" aria-modal="true" aria-labelledby="roomTitle">
+  <div class="room-top">
+    <div>
+      <h2 id="roomTitle">Private consultation</h2>
+      <p class="muted" id="roomMeta"></p>
+    </div>
+    <div class="room-top-right">
+      <div class="room-timer" id="roomTimer" aria-label="Session timer">00:00</div>
+      <button class="btn btn-ghost btn-shine btn-sm" id="roomLeave" type="button">Leave room</button>
+    </div>
+  </div>
+  <div class="room-body">
+    <div class="panel room-video">
+      <div class="video-frame" id="videoFrame">
+        <video id="localVideo" autoplay muted playsinline></video>
+        <div class="mask-figure" id="maskFigure" aria-hidden="true"><i></i></div>
+        <div class="video-empty" id="videoEmpty">Camera is off</div>
+      </div>
+      <div class="video-controls">
+        <button class="btn btn-ghost btn-shine btn-sm" id="camBtn" type="button">Start camera preview</button>
+        <button class="btn btn-primary btn-shine btn-sm" id="maskBtn" type="button" aria-pressed="true">Anonymous Privacy Mask: on</button>
+      </div>
+      <p class="fine">Your camera preview stays on your device. The mask blurs your image and hides your alias in this room.</p>
+    </div>
+    <div class="panel room-chat">
+      <p class="room-status" id="roomStatus" role="status">Waiting for your clinician to join at the scheduled time…</p>
+      <div class="chat-log" id="roomLog" role="log" aria-live="polite"></div>
+      <form class="chat-form" id="roomForm" autocomplete="off">
+        <label class="sr" for="roomInput">Message</label>
+        <input id="roomInput" maxlength="1000" placeholder="Write to your clinician…" />
+        <button class="btn btn-primary btn-shine btn-sm" type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+<script src="/app.js?v=2.1"></script>
+</body>
+</html>

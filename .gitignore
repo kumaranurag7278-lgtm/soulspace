@@ -1,0 +1,13 @@
+target/
+data/
+*.mv.db
+*.trace.db
+*.env
+.env*
+!.env.example
+application-local.properties
+*.iml
+.idea/
+.vscode/
+.DS_Store
+
